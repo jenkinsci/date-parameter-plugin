@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/date-paramter-plugin.iml" filepath="$PROJECT_DIR$/date-paramter-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/date-parameter.iml" filepath="$PROJECT_DIR$/date-parameter.iml" />
     </modules>
   </component>
 </project>

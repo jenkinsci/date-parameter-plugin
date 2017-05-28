@@ -7,13 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="date-offset-parameter" />
-        <module name="really-nice-date-parameter" />
+        <module name="date-parameter" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="date-offset-parameter" target="1.7" />
-      <module name="really-nice-date-parameter" target="1.7" />
+      <module name="date-parameter" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

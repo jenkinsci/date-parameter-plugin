@@ -11,14 +11,12 @@ import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
+
+import static me.leejay.jenkins.dateparameter.utils.LocalDatePattern.*;
 
 /**
  * Created by JuHyunLee on 2017. 5. 23..
@@ -26,6 +24,8 @@ import java.util.logging.Logger;
 public class DateParameterDefinition extends ParameterDefinition {
 
     private final static Logger LOG = Logger.getLogger(DateParameterDefinition.class.getName());
+
+    private final static org.slf4j.Logger log = LoggerFactory.getLogger(DateParameterDefinition.class);
 
     static final long serialVersionUID = 4;
 
@@ -38,23 +38,19 @@ public class DateParameterDefinition extends ParameterDefinition {
         super(name, description);
         this.dateFormat = dateFormat;
         this.defaultValue = defaultValue;
-        LOG.info(">>>>> DateParameterDefinition constructor called");
     }
 
     @Override
     public String getName() {
-        LOG.info(">>>>> getName called");
         return super.getName();
     }
 
     @Override
     public String getDescription() {
-        LOG.info(">>>>> getDescription called");
         return super.getDescription();
     }
 
     public String getDateFormat() {
-        LOG.info(">>>>> getDateFormat called");
         return dateFormat;
     }
 
@@ -62,26 +58,16 @@ public class DateParameterDefinition extends ParameterDefinition {
         return defaultValue;
     }
 
-    public String getDefaultDateValue() {
-        LOG.info(">>>>> getDefaultValue called: " + defaultValue);
-        List<String> codes = Arrays.asList(defaultValue.split("."));
-
-        if (codes.isEmpty()) {
-            LOG.info(">>>>> getDefaultValue: empty");
-            return "";
+    public String getValue() {
+        if (isValidLocalDateJavaCode(getDefaultValue())) {
+            return runJavaStringCode(getDefaultValue());
         }
 
-        if (!codes.get(0).startsWith("LocalDate.now()")) {
-            LOG.info(">>>>> getDefaultValue: not startsWith LocalDate.now()");
-            return "";
+        if (isValidLocalDateString(getDateFormat(), getDefaultValue())) {
+            return getDefaultValue();
         }
 
-        Date date = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DATE, 1);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-        return formatter.format(c.getTime());
+        return "";
     }
 
     @Override
@@ -93,9 +79,8 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     @Override
     public ParameterValue createValue(StaplerRequest req, JSONObject jo) {
-        LOG.info(">>>>> createValue1 called");
         DateParameterValue value = req.bindJSON(DateParameterValue.class, jo);
-        value.setDescription(this.getDescription());
+        value.setDateFormat(getDateFormat());
         return value;
     }
 
@@ -108,7 +93,7 @@ public class DateParameterDefinition extends ParameterDefinition {
             return getDefaultParameterValue();
         }
 
-        return new DateParameterValue(getName(), "good2", value[0]);
+        return new DateParameterValue(getName(), value[0], getDescription());
     }
 
     @Override
@@ -117,7 +102,6 @@ public class DateParameterDefinition extends ParameterDefinition {
         return super.createValue(command, value);
     }
 
-
     @Extension
     public static final class DescriptorImpl extends ParameterDescriptor {
 
@@ -125,29 +109,33 @@ public class DateParameterDefinition extends ParameterDefinition {
 
         @Override
         public String getDisplayName() {
-            LOG.info(">>>>> getDisplayName called");
             return DISPLAY_NAME;
         }
 
         public FormValidation doCheckName(@QueryParameter String name) {
-            if (isValidName(name)) {
+            if (StringUtils.isEmpty(name)) {
+                return FormValidation.error("Please enter a name.");
+            }
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckDateFormat(@QueryParameter String dateFormat) {
+            if (StringUtils.isEmpty(dateFormat)) {
+                return FormValidation.error("Please enter a date format");
+            }
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckDefaultValue(@QueryParameter String dateFormat, @QueryParameter String defaultValue) {
+            if (isValidLocalDateJavaCode(defaultValue)) {
                 return FormValidation.ok();
             }
-            return FormValidation.error("Please Enter a name.");
-        }
 
-        public FormValidation doCheckDefaultValue(@QueryParameter String defaultValue) {
-            if (isValidStringDate(defaultValue)) {
-
+            if (isValidLocalDateString(dateFormat, defaultValue)) {
+                return FormValidation.ok();
             }
-        }
 
-        public boolean isValidName(String dateFormat) {
-            return StringUtils.isNotEmpty(dateFormat);
-        }
-
-        public boolean isValidStringDate(String defaultValue) {
-
+            return FormValidation.error("Invalid default value");
         }
 
     }

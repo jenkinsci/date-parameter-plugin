@@ -1,38 +1,63 @@
 package me.leejay.jenkins.dateparameter;
 
+import hudson.AbortException;
 import hudson.EnvVars;
+import hudson.Launcher;
 import hudson.model.AbstractBuild;
+import hudson.model.BuildListener;
 import hudson.model.Run;
 import hudson.model.StringParameterValue;
+import hudson.tasks.BuildWrapper;
 import hudson.util.VariableResolver;
+import me.leejay.jenkins.dateparameter.utils.LocalDatePattern;
+import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.logging.Logger;
+import java.io.IOException;
 
 /**
  * Created by JuHyunLee on 2017. 5. 23..
  */
 public class DateParameterValue extends StringParameterValue {
 
-    private final static Logger LOG = Logger.getLogger(DateParameterValue.class.getName());
+    private final static Logger log = LoggerFactory.getLogger(DateParameterDefinition.class);
 
     private static final long serialVersionUID = 1L;
+
+    private String value;
+
+    private String dateFormat;
 
     @DataBoundConstructor
     public DateParameterValue(String name, String value, String description) {
         super(name, value, description);
-        LOG.info(">>>>> DateParameterValue1 called");
-        LOG.info(">>>>> " + name);
-        LOG.info(">>>>> " + value);
+        this.value = value;
+        log.info(">>>>> DateParameterValue: {}, {}, {}", name, value, description);
+    }
+
+    public void setDateFormat(String dateFormat) {
+        log.info("setDateFormat:{}", dateFormat);
+        this.dateFormat = dateFormat;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    @Override
+    public String getValue() {
+        return value;
     }
 
     @Override
     public VariableResolver<String> createVariableResolver(AbstractBuild<?, ?> build) {
-        LOG.info(">>>>> createVariableResolver called");
+        log.info("createVariableResolver");
         return new VariableResolver<String>() {
             @Override
             public String resolve(String s) {
-                return "good";
+                return getValue();
             }
         };
     }
@@ -43,65 +68,22 @@ public class DateParameterValue extends StringParameterValue {
     }
 
     @Override
-    public String getValue() {
-        LOG.info(">>>>> getValue called");
-        return "my static string value";
-    }
-
-    @Override
-    public String getShortDescription() {
-        LOG.info(">>>>> getShortDescription called");
-        return "getShortDescription";
-    }
-
-//    @Override
-//    public BuildWrapper createBuildWrapper(AbstractBuild<?, ?> build) {
-//        LOG.info(">>>>> createBuildWrapper called");
-//        return new BuildWrapper() {
-//            @Override
-//            public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
-//                LOG.info(">>>>> createBuildWrapper.setup called");
-//                throw new AbortException("엥..");
-//            }
-//        };
-//    }
-
-    @Override
-    public int hashCode() {
-        LOG.info(">>>>> hashCode called");
-        final int prime = 71;
-        int result = super.hashCode();
-        result = prime * result;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        LOG.info(">>>>> equals called");
-        if (this == obj) {
-            return true;
+    public BuildWrapper createBuildWrapper(AbstractBuild<?, ?> build) {
+        if (StringUtils.isEmpty(getValue())) {
+            return null;
         }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (DateParameterValue.class != obj.getClass()) {
-            return false;
-        }
-        DateParameterValue other = (DateParameterValue) obj;
-        if (value == null) {
-            if (other.value != null) {
-                return false;
-            }
-        } else if (!value.equals(other.value)) {
-            return false;
-        }
-        return true;
-    }
 
-    @Override
-    public String toString() {
-        LOG.info(">>>>> toString called");
-        return "(DateParameterValue) " + getName() + "='" + value + "'";
+        if (!LocalDatePattern.isValidLocalDateString(getDateFormat(), getValue())) {
+            return new BuildWrapper() {
+                @Override
+                public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
+                    throw new AbortException("Can't parse date format '" + getValue() + "' with '" + getDateFormat() + "'");
+                }
+            };
+        }
+
+        return null;
+
     }
 
 }

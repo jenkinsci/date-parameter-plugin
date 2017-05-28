@@ -13,10 +13,10 @@
     <f:entry title="Name" field="name" description="The name of this parameter.">
         <f:textbox/>
     </f:entry>
-    <f:entry title="Date Format" field="dateFormat" description="Java date format. yyyyMMdd is default if you not enter.">
+    <f:entry title="Date Format" field="dateFormat" description="Java date format. eg) yyyyMMdd">
         <f:textbox />
     </f:entry>
-    <f:entry title="Default Value" field="defaultValue" description="The default value of this parameter. Now date is default if you not enter.">
+    <f:entry title="Default Value" field="defaultValue" description="The default value of this parameter.">
         <f:textbox />
     </f:entry>
     <f:entry title="Description" field="description" description="The description of this parameter.">
