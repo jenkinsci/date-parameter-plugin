@@ -10,16 +10,16 @@
       Creates a text field that shows the value of the "name" property.
       When submitted, it will be passed to the corresponding constructor parameter.
     -->
-    <f:entry title="Name" field="name" description="The name of this parameter.">
+    <f:entry title="Name" field="name">
         <f:textbox/>
     </f:entry>
-    <f:entry title="Date Format" field="dateFormat" description="Java date format. eg) yyyyMMdd">
+    <f:entry title="Date Format" field="dateFormat">
         <f:textbox />
     </f:entry>
-    <f:entry title="Default Value" field="defaultValue" description="The default value of this parameter.">
+    <f:entry title="Default Value" field="defaultValue">
         <f:textbox />
     </f:entry>
-    <f:entry title="Description" field="description" description="The description of this parameter.">
+    <f:entry title="Description" field="description">
         <f:textbox/>
     </f:entry>
 </j:jelly>
