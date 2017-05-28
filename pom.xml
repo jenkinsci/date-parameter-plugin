@@ -23,11 +23,11 @@
 
     <groupId>me.leejay.jenkins</groupId>
     <artifactId>date-parameter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>hpi</packaging>
     <name>Date Parameter Plugin</name>
     <url>https://wiki.jenkins-ci.org/display/JENKINS/Date+Parameter+Plugin</url>
-
+    <description>Java style LocalDate code as parameter in Parametrized builds</description>
     <!-- The default licence for Jenkins OSS Plugins is MIT. Substitute for the applicable one if needed. -->
 
     <licenses>
