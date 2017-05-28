@@ -1,11 +1,9 @@
 package me.leejay.jenkins.dateparameter.utils;
 
-import me.leejay.jenkins.dateparameter.DateParameterDefinition;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -18,8 +16,6 @@ import java.util.regex.Pattern;
  */
 public class LocalDatePattern {
 
-    private final static org.slf4j.Logger log = LoggerFactory.getLogger(DateParameterDefinition.class);
-
     private final static Pattern REALTION_PATTERN = Pattern.compile("^LocalDate\\.now\\(\\)(\\.(plus|minus)(Days|Months|Years)\\([0-9]+\\))*;$");
 
     private final static Pattern METHOD_INT_PARAM_PATTERN = Pattern.compile("^.+\\((?<offset>[0-9]+)\\)$");
@@ -27,11 +23,7 @@ public class LocalDatePattern {
     private final static Pattern METHOD_NAME_PATTERN = Pattern.compile("^(?<methodName>.+)\\(.+\\)$");
 
     public static boolean isValidLocalDateJavaCode(String code) {
-        if (StringUtils.isEmpty(code)) {
-            return false;
-        }
-
-        return REALTION_PATTERN.matcher(code).matches();
+        return !StringUtils.isEmpty(code) && REALTION_PATTERN.matcher(code).matches();
     }
 
     public static boolean isValidLocalDateString(String dateFormat, String stringDate) {

@@ -11,10 +11,10 @@ import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import static me.leejay.jenkins.dateparameter.utils.LocalDatePattern.*;
 
@@ -23,9 +23,7 @@ import static me.leejay.jenkins.dateparameter.utils.LocalDatePattern.*;
  */
 public class DateParameterDefinition extends ParameterDefinition {
 
-    private final static Logger LOG = Logger.getLogger(DateParameterDefinition.class.getName());
-
-    private final static org.slf4j.Logger log = LoggerFactory.getLogger(DateParameterDefinition.class);
+    private final static Logger log = LoggerFactory.getLogger(DateParameterDefinition.class);
 
     static final long serialVersionUID = 4;
 
@@ -72,7 +70,7 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     @Override
     public DateParameterValue getDefaultParameterValue() {
-        LOG.info(">>>>> getDefaultParameterValue called");
+        log.info(">>>>> getDefaultParameterValue called");
         DateParameterValue v = new DateParameterValue(getName(), "good", getDescription());
         return v;
     }
@@ -86,10 +84,10 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     @Override
     public ParameterValue createValue(StaplerRequest staplerRequest) {
-        LOG.info(">>>>> createValue2 called");
+        log.info("createValue2 called");
         String[] value = staplerRequest.getParameterValues(getName());
         if (ArrayUtils.isEmpty(value)) {
-            LOG.info(">>>>> createValue2: empty");
+            log.info(">>>>> createValue2: empty");
             return getDefaultParameterValue();
         }
 
@@ -98,7 +96,7 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     @Override
     public ParameterValue createValue(CLICommand command, String value) throws IOException, InterruptedException {
-        LOG.info(">>>>> createValue3 called cli");
+        log.info(">>>>> createValue3 called cli");
         return super.createValue(command, value);
     }
 
