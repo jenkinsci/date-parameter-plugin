@@ -8,8 +8,6 @@ import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static me.leejay.jenkins.dateparameter.utils.LocalDatePattern.*;
 import static org.apache.commons.lang.StringUtils.isEmpty;
