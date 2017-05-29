@@ -86,4 +86,23 @@ public class DateParameterValue extends StringParameterValue {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        DateParameterValue that = (DateParameterValue) o;
+
+        if (!value.equals(that.value)) return false;
+        return dateFormat.equals(that.dateFormat);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + value.hashCode();
+        result = 31 * result + dateFormat.hashCode();
+        return result;
+    }
 }

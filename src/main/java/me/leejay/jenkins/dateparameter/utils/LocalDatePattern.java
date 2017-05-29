@@ -5,6 +5,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -73,9 +74,10 @@ public class LocalDatePattern {
         try {
             Method method = localDate.getClass().getDeclaredMethod(methodName, int.class);
             return (LocalDate) method.invoke(localDate, offset);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Failed to invoke method: " + methodName);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            return localDate;
         }
+
     }
 
 }
