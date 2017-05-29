@@ -5,6 +5,9 @@ import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
 import hudson.util.FormValidation;
 import net.sf.json.JSONObject;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
@@ -50,7 +53,9 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     public String getValue() {
         if (isValidLocalDateJavaCode(getDefaultValue())) {
-            return runJavaStringCode(getDefaultValue());
+            LocalDate date = runJavaStringCode(getDefaultValue());
+            DateTimeFormatter formatter = DateTimeFormat.forPattern(getDateFormat());
+            return date.toString(formatter);
         }
 
         if (isValidLocalDateString(getDateFormat(), getDefaultValue())) {

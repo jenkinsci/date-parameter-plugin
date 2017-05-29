@@ -37,12 +37,12 @@ public class LocalDatePattern {
         return true;
     }
 
-    public static String runJavaStringCode(String code) {
+    public static LocalDate runJavaStringCode(String code) {
         List<String> codes = Arrays.asList(code.split("\\."));
 
         LocalDate now = LocalDate.now();
         if (codes.size() == 2) {
-            return now.toString();
+            return now;
         }
 
         for (String methodCode : codes.subList(2, codes.size())) {
@@ -51,7 +51,7 @@ public class LocalDatePattern {
             now = invokeLocalDateMethod(now, methodName, offset);
         }
 
-        return now.toString();
+        return now;
     }
 
     static String parseMethodName(String code) {
