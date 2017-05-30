@@ -1,3 +1,6 @@
+# custom
+*.iml
+
 # Jenkins
 work
 target
@@ -107,3 +110,4 @@ fabric.properties
 .idea/sonarlint
 
 # End of https://www.gitignore.io/api/jetbrains
+
