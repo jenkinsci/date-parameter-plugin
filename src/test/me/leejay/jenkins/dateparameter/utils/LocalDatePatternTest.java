@@ -1,5 +1,6 @@
 package me.leejay.jenkins.dateparameter.utils;
 
+import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -66,25 +67,25 @@ public class LocalDatePatternTest {
 
     @Test
     public void runJavaStringCode_test() {
-        String case1 = runJavaStringCode("LocalDate.now();");
+        LocalDate case1 = runJavaStringCode("LocalDate.now();");
         Assert.assertNotNull(case1);
 
-        String case2 = runJavaStringCode("LocalDate.now().plusDays(1);");
+        LocalDate case2 = runJavaStringCode("LocalDate.now().plusDays(1);");
         Assert.assertNotNull(case2);
 
-        String case3 = runJavaStringCode("LocalDate.now().plusDays(1).plusMonths(2);");
+        LocalDate case3 = runJavaStringCode("LocalDate.now().plusDays(1).plusMonths(2);");
         Assert.assertNotNull(case3);
 
-        String case4 = runJavaStringCode("LocalDate.now().plusDays(1).plusMonths(2).plusYears(3);");
+        LocalDate case4 = runJavaStringCode("LocalDate.now().plusDays(1).plusMonths(2).plusYears(3);");
         Assert.assertNotNull(case4);
 
-        String case5 = runJavaStringCode("LocalDate.now().minusDays(1);");
+        LocalDate case5 = runJavaStringCode("LocalDate.now().minusDays(1);");
         Assert.assertNotNull(case5);
 
-        String case6 = runJavaStringCode("LocalDate.now().minusDays(1).minusMonths(3);");
+        LocalDate case6 = runJavaStringCode("LocalDate.now().minusDays(1).minusMonths(3);");
         Assert.assertNotNull(case6);
 
-        String case7 = runJavaStringCode("LocalDate.now().minusDays(1).minusMonths(2).minusYears(3);");
+        LocalDate case7 = runJavaStringCode("LocalDate.now().minusDays(1).minusMonths(2).minusYears(3);");
         Assert.assertNotNull(case7);
     }
 
