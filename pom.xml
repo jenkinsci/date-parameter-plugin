@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
         <version>2.11</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <properties>
         <!-- Baseline Jenkins version you use to build the plugin. Users must have this version or newer to run. -->
         <jenkins.version>1.614</jenkins.version>
         <!-- Other properties you may want to use:
-             ~ java.level: set to 6 if your jenkins.version <= 1.611
-             ~ jenkins-test-harness.version: Jenkins Test Harness version you use to test the plugin. For Jenkins version >= 1.580.1 use JTH 2.0 or higher.
+             ~ java.level: set to 6 if your jenkins.version <= 1.611 ~ jenkins-test-harness.version: Jenkins Test Harness version you use to test the plugin. For Jenkins version >= 1.580.1 use JTH 2.0 or higher.
              ~ hpi-plugin.version: The HPI Maven Plugin version used by the plugin..
              ~ stapler-plugin.version: The Stapler Maven plugin version required by the plugin.
         -->
@@ -23,7 +21,7 @@
 
     <groupId>me.leejay.jenkins</groupId>
     <artifactId>date-parameter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>hpi</packaging>
     <name>Date Parameter Plugin</name>
     <url>https://wiki.jenkins-ci.org/display/JENKINS/Date+Parameter+Plugin</url>
@@ -41,7 +39,8 @@
         <connection>scm:git:git://github.com/jenkinsci/date-parameter-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/date-parameter-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/date-parameter-plugin</url>
-    </scm>
+      <tag>v0.0.1</tag>
+  </scm>
 
     <developers>
         <developer>
