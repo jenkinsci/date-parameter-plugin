@@ -24,12 +24,9 @@ public class StringLocalDateValue {
 
     private final String stringDateFormat;
 
-    private final DateTimeFormatter dateFormat;
-
     public StringLocalDateValue(String stringLocalDate, String stringDateFormat) {
         this.stringLocalDate = stringLocalDate;
         this.stringDateFormat = stringDateFormat;
-        this.dateFormat = DateTimeFormat.forPattern(stringDateFormat);
     }
 
     public String getStringLocalDate() {
@@ -42,7 +39,8 @@ public class StringLocalDateValue {
 
     public boolean isCompletionFormat() {
         try {
-            return LocalDate.parse(stringLocalDate, dateFormat) != null;
+            DateTimeFormatter formatter = DateTimeFormat.forPattern(stringDateFormat);
+            return LocalDate.parse(stringLocalDate, formatter) != null;
         } catch (IllegalArgumentException e) {
             return false;
         }
@@ -95,7 +93,8 @@ public class StringLocalDateValue {
         }
 
         if (isJavaFormat()) {
-            return parseJava().toString(dateFormat);
+            DateTimeFormatter formatter = DateTimeFormat.forPattern(stringDateFormat);
+            return parseJava().toString(formatter);
         }
 
         return "";

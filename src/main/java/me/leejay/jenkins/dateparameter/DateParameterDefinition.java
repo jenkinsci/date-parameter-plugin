@@ -36,14 +36,23 @@ public class DateParameterDefinition extends ParameterDefinition {
         return super.getDescription();
     }
 
+    /**
+     * Called from jelly
+     */
     public String getDateFormat() {
         return stringLocalDateValue.getStringDateFormat();
     }
 
+    /**
+     * Called from jelly
+     */
     public String getDefaultValue() {
         return stringLocalDateValue.getStringLocalDate();
     }
 
+    /**
+     * Called from jelly
+     */
     public String getValue() {
         return stringLocalDateValue.getValue();
     }
@@ -108,7 +117,6 @@ public class DateParameterDefinition extends ParameterDefinition {
 
             return FormValidation.error("Invalid default value");
         }
-
     }
 
 }
