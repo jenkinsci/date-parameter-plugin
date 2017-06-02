@@ -20,7 +20,7 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 776445397055325795L;
 
     private final StringLocalDateValue stringLocalDateValue;
 

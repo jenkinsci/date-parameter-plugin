@@ -16,8 +16,6 @@ import java.util.List;
  */
 public class StringLocalDateValue {
 
-    static final long serialVersionUID = 2L;
-
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final static String JAVA_PATTERN = "^LocalDate\\.now\\(\\)(\\.(plus|minus)(Days|Months|Years)\\([0-9]+\\))*;?$";

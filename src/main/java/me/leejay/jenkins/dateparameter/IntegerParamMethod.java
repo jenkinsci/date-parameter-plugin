@@ -11,8 +11,6 @@ import java.util.regex.Pattern;
  */
 public class IntegerParamMethod {
 
-    static final long serialVersionUID = 8L;
-
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final static Pattern PATTERN = Pattern.compile("^(?<name>.+)\\((?<parameter>[0-9]+)\\);?$");

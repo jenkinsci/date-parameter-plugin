@@ -21,9 +21,9 @@ import java.io.IOException;
  */
 public class DateParameterValue extends StringParameterValue {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final long serialVersionUID = -3270996447541190520L;
 
-    static final long serialVersionUID = 1L;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final String value;
 
