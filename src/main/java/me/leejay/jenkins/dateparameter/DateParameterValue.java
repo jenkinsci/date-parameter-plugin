@@ -62,7 +62,6 @@ public class DateParameterValue extends StringParameterValue {
         return new VariableResolver<String>() {
             @Override
             public String resolve(String s) {
-                log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}", s);
                 return getValue();
             }
         };
