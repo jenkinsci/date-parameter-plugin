@@ -73,10 +73,6 @@ public class StringLocalDateValue {
 
             try {
                 Method method = localDate.getClass().getMethod(paramMethod.getName(), int.class);
-                if (method == null) {
-                    log.error("Failed to getMethod={}", paramMethod.getName());
-                    return null;
-                }
                 localDate = (LocalDate) method.invoke(localDate, paramMethod.getParameter());
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                 log.error("Failed to invoke method, {}, {}", paramMethod.getName(), paramMethod.getParameter());
