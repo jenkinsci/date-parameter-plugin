@@ -9,7 +9,6 @@ import hudson.model.Run;
 import hudson.model.StringParameterValue;
 import hudson.tasks.BuildWrapper;
 import hudson.util.VariableResolver;
-import me.leejay.jenkins.dateparameter.utils.LocalDatePattern;
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.slf4j.Logger;
@@ -22,11 +21,11 @@ import java.io.IOException;
  */
 public class DateParameterValue extends StringParameterValue {
 
-    private final static Logger log = LoggerFactory.getLogger(DateParameterValue.class);
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private static final long serialVersionUID = 1L;
 
-    private String value;
+    private final String value;
 
     private String dateFormat;
 
@@ -34,11 +33,18 @@ public class DateParameterValue extends StringParameterValue {
     public DateParameterValue(String name, String value, String description) {
         super(name, value, description);
         this.value = value;
-        log.info(">>>>> DateParameterValue: {}, {}, {}", name, value, description);
     }
 
-    public void setDateFormat(String dateFormat) {
-        log.info("setDateFormat:{}", dateFormat);
+    public DateParameterValue(String name, String value, String dateFormat, String description) {
+        this(name, value, description);
+        this.dateFormat = dateFormat;
+    }
+
+    public void createValueFromJenkins(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public void createValueFromPostRequest(String dateFormat) {
         this.dateFormat = dateFormat;
     }
 
@@ -53,10 +59,10 @@ public class DateParameterValue extends StringParameterValue {
 
     @Override
     public VariableResolver<String> createVariableResolver(AbstractBuild<?, ?> build) {
-        log.info("createVariableResolver");
         return new VariableResolver<String>() {
             @Override
             public String resolve(String s) {
+                log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}", s);
                 return getValue();
             }
         };
@@ -73,7 +79,8 @@ public class DateParameterValue extends StringParameterValue {
             return null;
         }
 
-        if (!LocalDatePattern.isValidLocalDateString(getDateFormat(), getValue())) {
+        StringLocalDateValue value = new StringLocalDateValue(getValue(), getDateFormat());
+        if (!value.isCompletionFormat()) {
             return new BuildWrapper() {
                 @Override
                 public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
@@ -81,7 +88,6 @@ public class DateParameterValue extends StringParameterValue {
                 }
             };
         }
-
         return null;
 
     }

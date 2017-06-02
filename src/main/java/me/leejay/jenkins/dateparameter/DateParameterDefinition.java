@@ -5,14 +5,10 @@ import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
 import hudson.util.FormValidation;
 import net.sf.json.JSONObject;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import static me.leejay.jenkins.dateparameter.utils.LocalDatePattern.*;
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
 /**
@@ -22,15 +18,12 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     static final long serialVersionUID = 4;
 
-    private final String dateFormat;
-
-    private final String defaultValue;
+    private final StringLocalDateValue stringLocalDateValue;
 
     @DataBoundConstructor
     public DateParameterDefinition(String name, String dateFormat, String defaultValue, String description) {
         super(name, description);
-        this.dateFormat = dateFormat;
-        this.defaultValue = defaultValue;
+        this.stringLocalDateValue = new StringLocalDateValue(defaultValue, dateFormat);
     }
 
     @Override
@@ -44,25 +37,15 @@ public class DateParameterDefinition extends ParameterDefinition {
     }
 
     public String getDateFormat() {
-        return dateFormat;
+        return stringLocalDateValue.getStringDateFormat();
     }
 
     public String getDefaultValue() {
-        return defaultValue;
+        return stringLocalDateValue.getStringLocalDate();
     }
 
     public String getValue() {
-        if (isValidLocalDateJavaCode(getDefaultValue())) {
-            LocalDate date = runJavaStringCode(getDefaultValue());
-            DateTimeFormatter formatter = DateTimeFormat.forPattern(getDateFormat());
-            return date.toString(formatter);
-        }
-
-        if (isValidLocalDateString(getDateFormat(), getDefaultValue())) {
-            return getDefaultValue();
-        }
-
-        return "";
+        return stringLocalDateValue.getValue();
     }
 
     @Override
@@ -72,21 +55,21 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     @Override
     public ParameterValue createValue(StaplerRequest req, JSONObject jo) {
-        DateParameterValue dateParameterValue = req.bindJSON(DateParameterValue.class, jo);
-        dateParameterValue.setDateFormat(getDateFormat());
-        return dateParameterValue;
+        DateParameterValue value = req.bindJSON(DateParameterValue.class, jo);
+        value.createValueFromJenkins(getDateFormat());
+        return value;
     }
 
     @Override
     public ParameterValue createValue(StaplerRequest staplerRequest) {
-        String value = staplerRequest.getParameter(getName());
-        if (isEmpty(value)) {
+        String requestedValue = staplerRequest.getParameter(getName());
+        if (isEmpty(requestedValue)) {
             return getDefaultParameterValue();
         }
 
-        DateParameterValue dateParameterValue = new DateParameterValue(getName(), value, getDescription());
-        dateParameterValue.setDateFormat(getDateFormat());
-        return dateParameterValue;
+        DateParameterValue value = new DateParameterValue(getName(), requestedValue, getDateFormat(), getDescription());
+        value.createValueFromPostRequest(getDateFormat());
+        return value;
     }
 
     @Extension
@@ -114,11 +97,12 @@ public class DateParameterDefinition extends ParameterDefinition {
         }
 
         public FormValidation doCheckDefaultValue(@QueryParameter String dateFormat, @QueryParameter String defaultValue) {
-            if (isValidLocalDateJavaCode(defaultValue)) {
+            StringLocalDateValue value = new StringLocalDateValue(defaultValue, dateFormat);
+            if (value.isCompletionFormat()) {
                 return FormValidation.ok();
             }
 
-            if (isValidLocalDateString(dateFormat, defaultValue)) {
+            if (value.isJavaFormat()) {
                 return FormValidation.ok();
             }
 
