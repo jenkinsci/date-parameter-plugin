@@ -16,7 +16,7 @@ import static org.apache.commons.lang.StringUtils.isEmpty;
  */
 public class DateParameterDefinition extends ParameterDefinition {
 
-    static final long serialVersionUID = 4;
+    static final long serialVersionUID = 5L;
 
     private final StringLocalDateValue stringLocalDateValue;
 

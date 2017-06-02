@@ -23,7 +23,7 @@ public class DateParameterValue extends StringParameterValue {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private static final long serialVersionUID = 1L;
+    static final long serialVersionUID = 1L;
 
     private final String value;
 
