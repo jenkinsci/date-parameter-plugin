@@ -20,14 +20,11 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     private static final long serialVersionUID = 776445397055325795L;
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     private final StringLocalDateValue stringLocalDateValue;
 
     @DataBoundConstructor
     public DateParameterDefinition(String name, String dateFormat, String defaultValue, String description) {
         super(name, description);
-        log.info("DateParameterDefinition: name={}, dateFormat={}, defaultValue={}, description={}", name, dateFormat, defaultValue, description);
         this.stringLocalDateValue = new StringLocalDateValue(defaultValue, dateFormat);
     }
 

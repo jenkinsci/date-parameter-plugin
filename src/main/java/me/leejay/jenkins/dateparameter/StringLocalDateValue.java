@@ -19,8 +19,6 @@ public class StringLocalDateValue implements Serializable {
 
     private static final long serialVersionUID = 8295455815421939737L;
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     private final static String JAVA_PATTERN = "^LocalDate\\.now\\(\\)(\\.(plus|minus)(Days|Months|Years)\\([0-9]+\\))*;?$";
 
     private final String stringLocalDate;
@@ -70,7 +68,6 @@ public class StringLocalDateValue implements Serializable {
         for (String code : codes.subList(2, codes.size())) {
             IntegerParamMethod paramMethod = new IntegerParamMethod(code);
             if (paramMethod.getName() == null || paramMethod.getParameter() == null) {
-                log.error("Failed to parse method={}, parameter={}", paramMethod.getName(), paramMethod.getParameter());
                 return null;
             }
 
@@ -78,7 +75,6 @@ public class StringLocalDateValue implements Serializable {
                 Method method = localDate.getClass().getMethod(paramMethod.getName(), int.class);
                 localDate = (LocalDate) method.invoke(localDate, paramMethod.getParameter());
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                log.error("Failed to invoke method, {}, {}", paramMethod.getName(), paramMethod.getParameter());
                 return null;
             }
         }
