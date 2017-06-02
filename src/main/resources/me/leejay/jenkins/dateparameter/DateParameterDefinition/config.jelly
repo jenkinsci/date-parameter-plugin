@@ -1,6 +1,6 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
-         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+<j:jelly xmlns:j="jelly:core"
+         xmlns:f="/lib/form">
     <!--
       This jelly script is used for per-project configuration.
 
@@ -15,10 +15,10 @@
         <f:textbox/>
     </f:entry>
     <f:entry title="Date Format" field="dateFormat">
-        <f:textbox />
+        <f:textbox/>
     </f:entry>
     <f:entry title="Default Value" field="defaultValue">
-        <f:textbox />
+        <f:textbox/>
     </f:entry>
     <f:entry title="Description" field="description">
         <f:textbox/>
