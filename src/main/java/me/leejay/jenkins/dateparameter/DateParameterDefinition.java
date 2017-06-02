@@ -8,6 +8,8 @@ import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
 
@@ -16,6 +18,8 @@ import static org.apache.commons.lang.StringUtils.isEmpty;
  */
 public class DateParameterDefinition extends ParameterDefinition {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     static final long serialVersionUID = 5L;
 
     private final StringLocalDateValue stringLocalDateValue;
@@ -23,6 +27,7 @@ public class DateParameterDefinition extends ParameterDefinition {
     @DataBoundConstructor
     public DateParameterDefinition(String name, String dateFormat, String defaultValue, String description) {
         super(name, description);
+        log.info("DateParameterDefinition: name={}, dateFormat={}, defaultValue={}, description={}", name, dateFormat, defaultValue, description);
         this.stringLocalDateValue = new StringLocalDateValue(defaultValue, dateFormat);
     }
 
