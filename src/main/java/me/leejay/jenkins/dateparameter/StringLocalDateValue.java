@@ -6,6 +6,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -14,7 +15,9 @@ import java.util.List;
 /**
  * Created by JuHyunLee on 2017. 6. 2..
  */
-public class StringLocalDateValue {
+public class StringLocalDateValue implements Serializable {
+
+    private static final long serialVersionUID = 8295455815421939737L;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
