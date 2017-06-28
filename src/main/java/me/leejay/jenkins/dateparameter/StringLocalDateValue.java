@@ -17,7 +17,9 @@ import java.util.List;
  */
 public class StringLocalDateValue implements Serializable {
 
-    private static final long serialVersionUID = 8295455815421939737L;
+    private final static Logger log = LoggerFactory.getLogger(StringLocalDateValue.class);
+
+    private final static long serialVersionUID = 8295455815421939737L;
 
     private final static String JAVA_PATTERN = "^LocalDate\\.now\\(\\)(\\.(plus|minus)(Days|Months|Years)\\([0-9]+\\))*;?$";
 
@@ -43,6 +45,7 @@ public class StringLocalDateValue implements Serializable {
             DateTimeFormatter formatter = DateTimeFormat.forPattern(stringDateFormat);
             return LocalDate.parse(stringLocalDate, formatter) != null;
         } catch (IllegalArgumentException e) {
+            e.printStackTrace();
             return false;
         }
     }

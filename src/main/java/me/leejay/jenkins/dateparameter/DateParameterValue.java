@@ -21,7 +21,9 @@ import java.io.IOException;
  */
 public class DateParameterValue extends StringParameterValue {
 
-    private static final long serialVersionUID = -3270996447541190520L;
+    private final static Logger log = LoggerFactory.getLogger(StringLocalDateValue.class);
+
+    private final static long serialVersionUID = -3270996447541190520L;
 
     private final String value;
 
@@ -35,6 +37,10 @@ public class DateParameterValue extends StringParameterValue {
 
     public DateParameterValue(String name, String value, String dateFormat, String description) {
         this(name, value, description);
+        this.dateFormat = dateFormat;
+    }
+
+    public void createValueFromDefault(String dateFormat) {
         this.dateFormat = dateFormat;
     }
 
@@ -86,7 +92,6 @@ public class DateParameterValue extends StringParameterValue {
             };
         }
         return null;
-
     }
 
     @Override

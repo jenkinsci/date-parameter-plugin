@@ -18,7 +18,9 @@ import static org.apache.commons.lang.StringUtils.isEmpty;
  */
 public class DateParameterDefinition extends ParameterDefinition {
 
-    private static final long serialVersionUID = 776445397055325795L;
+    private final static Logger log = LoggerFactory.getLogger(DateParameterDefinition.class);
+
+    private final static long serialVersionUID = 776445397055325795L;
 
     private final StringLocalDateValue stringLocalDateValue;
 
@@ -61,7 +63,9 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     @Override
     public DateParameterValue getDefaultParameterValue() {
-        return new DateParameterValue(getName(), getValue(), getDescription());
+        DateParameterValue value = new DateParameterValue(getName(), getValue(), getDescription());
+        value.createValueFromDefault(getDateFormat());
+        return value;
     }
 
     @Override
