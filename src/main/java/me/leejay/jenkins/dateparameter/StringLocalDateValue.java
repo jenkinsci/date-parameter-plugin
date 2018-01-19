@@ -1,6 +1,7 @@
 package me.leejay.jenkins.dateparameter;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ public class StringLocalDateValue implements Serializable {
 
     private final static long serialVersionUID = 8295455815421939737L;
 
-    private final static String JAVA_PATTERN = "^LocalDate\\.now\\(\\)(\\.(plus|minus)(Days|Months|Years)\\([0-9]+\\))*;?$";
+    private final static String JAVA_PATTERN = "^LocalDate(Time)?\\.now\\(\\)(\\.(plus|minus)(Seconds|Minutes|Hours|Days|Months|Years)\\([0-9]+\\))*;?$";
 
     private final String stringLocalDate;
 
@@ -43,7 +44,7 @@ public class StringLocalDateValue implements Serializable {
     public boolean isCompletionFormat() {
         try {
             DateTimeFormatter formatter = DateTimeFormat.forPattern(stringDateFormat);
-            return LocalDate.parse(stringLocalDate, formatter) != null;
+            return LocalDateTime.parse(stringLocalDate, formatter) != null;
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return false;
@@ -58,16 +59,16 @@ public class StringLocalDateValue implements Serializable {
         return stringDateFormat;
     }
 
-    LocalDate parseJava() {
+    LocalDateTime parseJava() {
         List<String> codes = Arrays.asList(stringLocalDate.split("\\."));
         if (codes.size() == 2) { // LocalDate.now();
-            if (stringLocalDate.equals("LocalDate.now()") || stringLocalDate.equals("LocalDate.now();")) {
-                return LocalDate.now();
+            if (stringLocalDate.matches("^LocalDate(Time)?\\.now\\(\\);?$")) {
+                return LocalDateTime.now();
             }
             return null;
         }
 
-        LocalDate localDate = LocalDate.now();
+        LocalDateTime localDateTime = LocalDateTime.now();
         for (String code : codes.subList(2, codes.size())) {
             IntegerParamMethod paramMethod = new IntegerParamMethod(code);
             if (paramMethod.getName() == null || paramMethod.getParameter() == null) {
@@ -75,14 +76,14 @@ public class StringLocalDateValue implements Serializable {
             }
 
             try {
-                Method method = localDate.getClass().getMethod(paramMethod.getName(), int.class);
-                localDate = (LocalDate) method.invoke(localDate, paramMethod.getParameter());
+                Method method = localDateTime.getClass().getMethod(paramMethod.getName(), int.class);
+                localDateTime = (LocalDateTime) method.invoke(localDateTime, paramMethod.getParameter());
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                 return null;
             }
         }
 
-        return localDate;
+        return localDateTime;
     }
 
     String getValue() {
