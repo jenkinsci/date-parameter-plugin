@@ -1,11 +1,15 @@
 You can create a 'default value' in one of two forms.
 
-<p>1. Java LocalDate code style</p>
+<p>1. Java LocalDate or LocalDateTime code style</p>
 <ul>
     <li>LocalDate.now();</li>
     <li>LocalDate.now().plusDays(1);</li>
     <li>LocalDate.now().plusDays(1).plusYears(2);</li>
     <li>LocalDate.now().minusDays(5).minusMonths(3).minusYears(2);</li>
+    <li>LocalDateTime.now()</li>
+    <li>LocalDateTime.now().minusHours(5).plusMinutes(10).minusSeconds(20);</li>
+    <li>LocalDateTime.now().minusDays(5).plusYears(5).plusSeconds(50);</li>
+
 </ul>
 
 <p>2. LocalDate String (This case should match the format of 'dateFormat')</p>
