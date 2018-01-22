@@ -21,7 +21,7 @@
 
     <groupId>me.leejay.jenkins</groupId>
     <artifactId>date-parameter</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Date Parameter Plugin</name>
     <url>https://wiki.jenkins-ci.org/display/JENKINS/Date+Parameter+Plugin</url>
@@ -39,7 +39,7 @@
         <connection>scm:git:git://github.com/jenkinsci/date-parameter-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/date-parameter-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/date-parameter-plugin</url>
-      <tag>v0.0.3</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <developers>
