@@ -1,6 +1,5 @@
 package me.leejay.jenkins.dateparameter;
 
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -18,11 +17,11 @@ import java.util.List;
  */
 public class StringLocalDateValue implements Serializable {
 
-    private final static Logger log = LoggerFactory.getLogger(StringLocalDateValue.class);
+    private static final Logger log = LoggerFactory.getLogger(StringLocalDateValue.class);
 
-    private final static long serialVersionUID = 8295455815421939737L;
+    private static final long serialVersionUID = 8295455815421939737L;
 
-    private final static String JAVA_PATTERN = "^LocalDate(Time)?\\.now\\(\\)(\\.(plus|minus)(Seconds|Minutes|Hours|Days|Months|Years)\\([0-9]+\\))*;?$";
+    private static final String JAVA_PATTERN = "^LocalDate(Time)?\\.now\\(\\)(\\.(plus|minus)(Seconds|Minutes|Hours|Days|Months|Years)\\([0-9]+\\))*;?$";
 
     private final String stringLocalDate;
 
@@ -46,7 +45,6 @@ public class StringLocalDateValue implements Serializable {
             DateTimeFormatter formatter = DateTimeFormat.forPattern(stringDateFormat);
             return LocalDateTime.parse(stringLocalDate, formatter) != null;
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
             return false;
         }
     }
