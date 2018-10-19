@@ -11,28 +11,22 @@ import hudson.tasks.BuildWrapper;
 import hudson.util.VariableResolver;
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Created by JuHyunLee on 2017. 5. 23..
  */
 public class DateParameterValue extends StringParameterValue {
 
-    private final static Logger log = LoggerFactory.getLogger(StringLocalDateValue.class);
-
     private final static long serialVersionUID = -3270996447541190520L;
-
-    private final String value;
 
     private String dateFormat;
 
     @DataBoundConstructor
     public DateParameterValue(String name, String value, String description) {
         super(name, value, description);
-        this.value = value;
     }
 
     public DateParameterValue(String name, String value, String dateFormat, String description) {
@@ -99,18 +93,12 @@ public class DateParameterValue extends StringParameterValue {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-
         DateParameterValue that = (DateParameterValue) o;
-
-        if (!value.equals(that.value)) return false;
-        return dateFormat.equals(that.dateFormat);
+        return Objects.equals(dateFormat, that.dateFormat);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + value.hashCode();
-        result = 31 * result + dateFormat.hashCode();
-        return result;
+        return Objects.hash(super.hashCode(), dateFormat);
     }
 }
