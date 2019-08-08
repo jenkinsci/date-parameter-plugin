@@ -41,7 +41,7 @@ public class PickerDefinition extends ParameterDefinition {
 
     /**
      * Called from jelly
-     * @return String
+     * @return the default value
      */
     public String getDefaultValue() {
         return this.defaultValue;
@@ -49,7 +49,7 @@ public class PickerDefinition extends ParameterDefinition {
 
     /**
      * Called from jelly
-     * @return String
+     * @return the value entered, if blank, default value
      */
     public String getValue() {
         return this.value;

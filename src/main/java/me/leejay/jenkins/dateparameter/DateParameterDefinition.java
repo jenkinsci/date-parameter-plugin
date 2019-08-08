@@ -44,7 +44,7 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     /**
      * Called from jelly
-     * @return String
+     * @return the date format
      */
     public String getDateFormat() {
         return stringLocalDateValue.getStringDateFormat();
@@ -52,7 +52,7 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     /**
      * Called from jelly
-     * @return String
+     * @return the default value
      */
     public String getDefaultValue() {
         return stringLocalDateValue.getStringLocalDate();
@@ -60,7 +60,7 @@ public class DateParameterDefinition extends ParameterDefinition {
 
     /**
      * Called from jelly
-     * @return String
+     * @return the value entered, if blank, default value
      */
     public String getValue() {
         return stringLocalDateValue.getValue();
