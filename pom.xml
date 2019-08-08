@@ -40,7 +40,7 @@
         <developerConnection>scm:git:git@github.com:jenkinsci/date-parameter-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/date-parameter-plugin</url>
       <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <developers>
         <developer>
@@ -73,5 +73,20 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>3.0.4</version>
+                    <configuration>
+                        <failOnError>true</failOnError>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>
