@@ -1,4 +1,4 @@
-package me.leejay.jenkins;
+package me.leejay.jenkins.dateparameter;
 
 import hudson.AbortException;
 import hudson.EnvVars;

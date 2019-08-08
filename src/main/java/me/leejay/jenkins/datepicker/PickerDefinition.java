@@ -2,7 +2,7 @@ package me.leejay.jenkins.datepicker;
 
 import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
-import me.leejay.jenkins.DateParameterValue;
+import me.leejay.jenkins.dateparameter.DateParameterValue;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.StaplerRequest;
 

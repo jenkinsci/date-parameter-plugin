@@ -1,4 +1,4 @@
-package me.leejay.jenkins;
+package me.leejay.jenkins.dateparameter;
 
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;

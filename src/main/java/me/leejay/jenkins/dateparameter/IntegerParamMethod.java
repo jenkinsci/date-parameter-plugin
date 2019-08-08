@@ -1,4 +1,4 @@
-package me.leejay.jenkins;
+package me.leejay.jenkins.dateparameter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
