@@ -49,6 +49,12 @@
             <email>leejaycoke@gmail.com</email>
             <timezone>+9</timezone>
         </developer>
+        <developer>
+            <id>rajvimalc</id>
+            <name>Vimalraj Chandra Sekaran</name>
+            <email>rajvimalc@gmail.com</email>
+            <timezone>Pacific</timezone>
+        </developer>
     </developers>
 
     <repositories>

@@ -1,4 +1,4 @@
-package me.leejay.jenkins.dateparameter;
+package me.leejay.jenkins;
 
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -57,7 +57,7 @@ public class StringLocalDateValue implements Serializable {
         return stringDateFormat;
     }
 
-    LocalDateTime parseJava() {
+    public LocalDateTime parseJava() {
         List<String> codes = Arrays.asList(stringLocalDate.split("\\."));
         if (codes.size() == 2) { // LocalDate.now();
             if (stringLocalDate.matches("^LocalDate(Time)?\\.now\\(\\);?$")) {
@@ -84,7 +84,7 @@ public class StringLocalDateValue implements Serializable {
         return localDateTime;
     }
 
-    String getValue() {
+    public String getValue() {
         if (isCompletionFormat()) {
             return stringLocalDate;
         }
