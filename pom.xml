@@ -21,7 +21,7 @@
 
     <groupId>me.leejay.jenkins</groupId>
     <artifactId>date-parameter</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.5-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Date Parameter Plugin</name>
     <url>https://wiki.jenkins-ci.org/display/JENKINS/Date+Parameter+Plugin</url>
