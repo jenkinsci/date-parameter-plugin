@@ -7,7 +7,7 @@ import hudson.util.FormValidation;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,14 +69,14 @@ public class DateParameterDefinition extends ParameterDefinition {
     }
 
     @Override
-    public ParameterValue createValue(StaplerRequest req, JSONObject jo) {
+    public ParameterValue createValue(StaplerRequest2 req, JSONObject jo) {
         DateParameterValue value = req.bindJSON(DateParameterValue.class, jo);
         value.createValueFromJenkins(getDateFormat());
         return value;
     }
 
     @Override
-    public ParameterValue createValue(StaplerRequest staplerRequest) {
+    public ParameterValue createValue(StaplerRequest2 staplerRequest) {
         String requestedValue = staplerRequest.getParameter(getName());
         if (isEmpty(requestedValue)) {
             return getDefaultParameterValue();
