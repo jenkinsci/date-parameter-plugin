@@ -1,16 +1,15 @@
 package me.leejay.jenkins.dateparameter;
 
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by JuHyunLee on 2017. 6. 2..
@@ -21,7 +20,8 @@ public class StringLocalDateValue implements Serializable {
 
     private static final long serialVersionUID = 8295455815421939737L;
 
-    private static final String JAVA_PATTERN = "^LocalDate(Time)?\\.now\\(\\)(\\.(plus|minus)(Seconds|Minutes|Hours|Days|Months|Years)\\([0-9]+\\))*;?$";
+    private static final String JAVA_PATTERN =
+            "^LocalDate(Time)?\\.now\\(\\)(\\.(plus|minus)(Seconds|Minutes|Hours|Days|Months|Years)\\([0-9]+\\))*;?$";
 
     private final String stringLocalDate;
 
@@ -96,5 +96,4 @@ public class StringLocalDateValue implements Serializable {
 
         return "";
     }
-
 }
