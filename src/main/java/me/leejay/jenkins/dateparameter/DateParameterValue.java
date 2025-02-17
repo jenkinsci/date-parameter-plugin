@@ -9,18 +9,17 @@ import hudson.model.Run;
 import hudson.model.StringParameterValue;
 import hudson.tasks.BuildWrapper;
 import hudson.util.VariableResolver;
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.stapler.DataBoundConstructor;
-
 import java.io.IOException;
 import java.util.Objects;
+import org.apache.commons.lang.StringUtils;
+import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * Created by JuHyunLee on 2017. 5. 23..
  */
 public class DateParameterValue extends StringParameterValue {
 
-    private final static long serialVersionUID = -3270996447541190520L;
+    private static final long serialVersionUID = -3270996447541190520L;
 
     private String dateFormat;
 
@@ -80,8 +79,10 @@ public class DateParameterValue extends StringParameterValue {
         if (!value.isCompletionFormat()) {
             return new BuildWrapper() {
                 @Override
-                public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
-                    throw new AbortException("Can't parse date format '" + getValue() + "' with '" + getDateFormat() + "'");
+                public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener)
+                        throws IOException, InterruptedException {
+                    throw new AbortException(
+                            "Can't parse date format '" + getValue() + "' with '" + getDateFormat() + "'");
                 }
             };
         }
