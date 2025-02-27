@@ -1,5 +1,7 @@
 package me.leejay.jenkins.dateparameter;
 
+import static org.apache.commons.lang.StringUtils.isEmpty;
+
 import hudson.Extension;
 import hudson.model.ParameterDefinition;
 import hudson.model.ParameterValue;
@@ -7,20 +9,18 @@ import hudson.util.FormValidation;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.apache.commons.lang.StringUtils.isEmpty;
 
 /**
  * Created by JuHyunLee on 2017. 5. 23..
  */
 public class DateParameterDefinition extends ParameterDefinition {
 
-    private final static Logger log = LoggerFactory.getLogger(DateParameterDefinition.class);
+    private static final Logger log = LoggerFactory.getLogger(DateParameterDefinition.class);
 
-    private final static long serialVersionUID = 776445397055325795L;
+    private static final long serialVersionUID = 776445397055325795L;
 
     private final StringLocalDateValue stringLocalDateValue;
 
@@ -69,14 +69,14 @@ public class DateParameterDefinition extends ParameterDefinition {
     }
 
     @Override
-    public ParameterValue createValue(StaplerRequest req, JSONObject jo) {
+    public ParameterValue createValue(StaplerRequest2 req, JSONObject jo) {
         DateParameterValue value = req.bindJSON(DateParameterValue.class, jo);
         value.createValueFromJenkins(getDateFormat());
         return value;
     }
 
     @Override
-    public ParameterValue createValue(StaplerRequest staplerRequest) {
+    public ParameterValue createValue(StaplerRequest2 staplerRequest) {
         String requestedValue = staplerRequest.getParameter(getName());
         if (isEmpty(requestedValue)) {
             return getDefaultParameterValue();
@@ -90,7 +90,7 @@ public class DateParameterDefinition extends ParameterDefinition {
     @Extension
     public static final class DescriptorImpl extends ParameterDescriptor {
 
-        private final static String DISPLAY_NAME = "Date Parameter";
+        private static final String DISPLAY_NAME = "Date Parameter";
 
         @Override
         public String getDisplayName() {
@@ -111,7 +111,8 @@ public class DateParameterDefinition extends ParameterDefinition {
             return FormValidation.ok();
         }
 
-        public FormValidation doCheckDefaultValue(@QueryParameter String dateFormat, @QueryParameter String defaultValue) {
+        public FormValidation doCheckDefaultValue(
+                @QueryParameter String dateFormat, @QueryParameter String defaultValue) {
             StringLocalDateValue value = new StringLocalDateValue(defaultValue, dateFormat);
             if (value.isCompletionFormat()) {
                 return FormValidation.ok();
@@ -124,5 +125,4 @@ public class DateParameterDefinition extends ParameterDefinition {
             return FormValidation.error("Invalid default value");
         }
     }
-
 }
