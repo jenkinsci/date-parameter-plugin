@@ -11,7 +11,6 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.apache.commons.lang.StringUtils.isEmpty;
 
 /**
  * Created by JuHyunLee on 2017. 5. 23..
@@ -78,7 +77,7 @@ public class DateParameterDefinition extends ParameterDefinition {
     @Override
     public ParameterValue createValue(StaplerRequest staplerRequest) {
         String requestedValue = staplerRequest.getParameter(getName());
-        if (isEmpty(requestedValue)) {
+        if (requestedValue == null || requestedValue.isEmpty()) {
             return getDefaultParameterValue();
         }
 
@@ -98,14 +97,14 @@ public class DateParameterDefinition extends ParameterDefinition {
         }
 
         public FormValidation doCheckName(@QueryParameter String name) {
-            if (isEmpty(name)) {
+            if (name == null || name.isEmpty()) {
                 return FormValidation.error("Please enter a name.");
             }
             return FormValidation.ok();
         }
 
         public FormValidation doCheckDateFormat(@QueryParameter String dateFormat) {
-            if (isEmpty(dateFormat)) {
+            if (dateFormat == null || dateFormat.isEmpty()) {
                 return FormValidation.error("Please enter a date format");
             }
             return FormValidation.ok();
