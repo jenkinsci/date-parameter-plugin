@@ -9,7 +9,6 @@ import hudson.model.Run;
 import hudson.model.StringParameterValue;
 import hudson.tasks.BuildWrapper;
 import hudson.util.VariableResolver;
-import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import java.io.IOException;
@@ -72,11 +71,12 @@ public class DateParameterValue extends StringParameterValue {
 
     @Override
     public BuildWrapper createBuildWrapper(AbstractBuild<?, ?> build) {
-        if (StringUtils.isEmpty(getValue())) {
+        String currentValue = getValue();
+        if (currentValue == null || currentValue.isEmpty()) {
             return null;
         }
 
-        StringLocalDateValue value = new StringLocalDateValue(getValue(), getDateFormat());
+        StringLocalDateValue value = new StringLocalDateValue(currentValue, getDateFormat());
         if (!value.isCompletionFormat()) {
             return new BuildWrapper() {
                 @Override

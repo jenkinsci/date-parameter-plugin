@@ -41,4 +41,11 @@ public class DateParameterValueTest {
         Assert.assertNotNull(buildWrapper);
     }
 
+    @Test
+    public void date_parameter_value_build_wrapper_when_value_is_null_test() {
+        DateParameterValue value = new DateParameterValue("MY_DATE", null, "description");
+        BuildWrapper buildWrapper = value.createBuildWrapper(null);
+        Assert.assertNull(buildWrapper);
+    }
+
 }
